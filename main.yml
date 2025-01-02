@@ -1,20 +1,23 @@
---- 
-- name: Ensure the system is up-to-date
-  yum:
-      name: "*"
-      state: latest
+---
+- name: Installation de Java
+  hosts: all
+  tasks:
+    - name: Ensure the system is up-to-date
+      yum:
+        name: "*"
+        state: latest
 
-- name: Install OpenJDK 11
-  yum:
-     name: java-11-openjdk
-     state: present
+    - name: Install OpenJDK 11
+      yum:
+        name: java-11-openjdk
+        state: present
 
-- name: Verify Java installation
-  command: java -version
-  register: java_version_output
-  ignore_errors: yes
+    - name: Verify Java installation
+      command: java -version
+      register: java_version_output
+      ignore_errors: yes
 
-- name: Display Java version
-  debug:
-    msg: "{{ java_version_output.stdout_lines }}"
+    - name: Display Java version
+      debug:
+        msg: "{{ java_version_output.stdout_lines }}"
 
